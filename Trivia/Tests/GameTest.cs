@@ -98,8 +98,8 @@ namespace Tests
             var game = new Game();
             game.Add("Cedric");
             game.Add("Eloïse");
+
             // act
-            
             game.Roll(1);
             game.WasCorrectlyAnswered();
             game.Roll(2);
@@ -120,9 +120,11 @@ namespace Tests
             game.WasCorrectlyAnswered();
             game.Roll(2);
             game.WasCorrectlyAnswered();
-            
+            game.Roll(2);
+            var actual = game.WasCorrectlyAnswered();
+
             // assert
-            Approvals.Verify(fakeconsole.ToString());
+            Assert.False(actual);
         }
     }
 }
