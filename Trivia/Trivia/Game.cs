@@ -63,15 +63,7 @@ namespace Trivia
                     _isGettingOutOfPenaltyBox = true;
                     //Write that user is getting out
                     Console.WriteLine(_players[_currentPlayer] + " is getting out of the penalty box");
-                    // add roll to place
-                    _places[_currentPlayer] = _places[_currentPlayer] + roll;
-                    if (_places[_currentPlayer] > 11) _places[_currentPlayer] = _places[_currentPlayer] - 12;
-
-                    Console.WriteLine(_players[_currentPlayer]
-                                      + "'s new location is "
-                                      + _places[_currentPlayer]);
-                    Console.WriteLine("The category is " + CurrentCategory());
-                    AskQuestion();
+                    NewMethod(roll);
                 }
                 else
                 {
@@ -81,15 +73,20 @@ namespace Trivia
             }
             else
             {
-                _places[_currentPlayer] = _places[_currentPlayer] + roll;
-                if (_places[_currentPlayer] > 11) _places[_currentPlayer] = _places[_currentPlayer] - 12;
-
-                Console.WriteLine(_players[_currentPlayer]
-                                  + "'s new location is "
-                                  + _places[_currentPlayer]);
-                Console.WriteLine("The category is " + CurrentCategory());
-                AskQuestion();
+                NewMethod(roll);
             }
+        }
+
+        private void NewMethod(int roll)
+        {
+            _places[_currentPlayer] += roll;
+            if (_places[_currentPlayer] > 11) _places[_currentPlayer] -= 12;
+
+            Console.WriteLine(_players[_currentPlayer]
+                              + "'s new location is "
+                              + _places[_currentPlayer]);
+            Console.WriteLine("The category is " + CurrentCategory());
+            AskQuestion();
         }
 
         private void AskQuestion()
@@ -160,7 +157,7 @@ namespace Trivia
                 if (_currentPlayer == _players.Count) _currentPlayer = 0;
                 return true;
             }
-
+            else
             {
                 Console.WriteLine("Answer was corrent!!!!");
                 _purses[_currentPlayer]++;
