@@ -132,18 +132,23 @@ namespace Trivia
 
         public bool WasCorrectlyAnswered()
         {
-            PassToTheNextPlayer();
+            bool isNotWinner;
             if (_inPenaltyBox[_currentPlayer])
             {
                 if (_isGettingOutOfPenaltyBox)
-                    return UpdateScoreAndGetTheNotWinner();
+                    isNotWinner = UpdateScoreAndGetTheNotWinner();
+                else
+                {
+                    isNotWinner = true;
+                }
 
-                return true;
             }
             else
             {
-                return UpdateScoreAndGetTheNotWinner();
+                isNotWinner = UpdateScoreAndGetTheNotWinner();
             }
+            PassToTheNextPlayer();
+            return isNotWinner;
         }
 
         private bool UpdateScoreAndGetTheNotWinner()
@@ -155,9 +160,7 @@ namespace Trivia
                               + _scores[_currentPlayer]
                               + " Gold Coins.");
 
-            var notWinner = _scores[_currentPlayer] != 6;
-
-            return notWinner;
+            return _scores[_currentPlayer] != 6;
         }
 
         private void PassToTheNextPlayer()
