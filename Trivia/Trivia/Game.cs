@@ -94,12 +94,10 @@ namespace Trivia
         {
             switch (CurrentCategory())
             { 
-                case Categories.Pop: 
-                {
+                case Categories.Pop:
                     Console.WriteLine(_popQuestions.First());
                     _popQuestions.RemoveFirst();
                     break;
-                }
                 case Categories.Science:
                     Console.WriteLine(_scienceQuestions.First());
                     _scienceQuestions.RemoveFirst();
