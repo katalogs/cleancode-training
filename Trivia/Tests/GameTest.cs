@@ -126,5 +126,22 @@ namespace Tests
             // assert
             Assert.False(actual);
         }
+
+        [Fact]
+        public void GameWithWrongAnswerShouldHaveNoWinner()
+        {
+            // Arrange
+            var fakeconsole = new StringWriter();
+            Console.SetOut(fakeconsole);
+            var game = new Game();
+            game.Add("Cedric");
+            game.Add("Eloïse");
+
+            // Act
+            var actual = game.WrongAnswer();
+
+            // Assert
+            Assert.True(actual);
+        }
     }
 }
