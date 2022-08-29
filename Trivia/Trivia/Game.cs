@@ -174,7 +174,7 @@ namespace Trivia
 
             _currentPlayer++;
             if (_currentPlayer == _players.Count) _currentPlayer = 0;
-            return false;
+            return true;
         }
     }
 }
