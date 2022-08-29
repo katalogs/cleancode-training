@@ -63,7 +63,7 @@ namespace Trivia
                     _isGettingOutOfPenaltyBox = true;
                     //Write that user is getting out
                     Console.WriteLine(_players[_currentPlayer] + " is getting out of the penalty box");
-                    NewMethod(roll);
+                    PlayTurn(roll);
                 }
                 else
                 {
@@ -73,11 +73,12 @@ namespace Trivia
             }
             else
             {
-                NewMethod(roll);
+                _isGettingOutOfPenaltyBox = false;
+                PlayTurn(roll);
             }
         }
 
-        private void NewMethod(int roll)
+        private void PlayTurn(int roll)
         {
             _places[_currentPlayer] += roll;
             if (_places[_currentPlayer] > 11) _places[_currentPlayer] -= 12;
