@@ -14,12 +14,12 @@ namespace Trivia
         private readonly int[] _places = new int[NumberMaxOfPlayer]; //Place of each player
 
         private readonly List<string> _players = new List<string>();
-        private readonly int[] _scores = new int[NumberMaxOfPlayer]; 
 
         private readonly LinkedList<string> _popQuestions = new LinkedList<string>();
-        private readonly LinkedList<string> _scienceQuestions = new LinkedList<string>();
-        private readonly LinkedList<string> _sportsQuestions = new LinkedList<string>();
         private readonly LinkedList<string> _rockQuestions = new LinkedList<string>();
+        private readonly LinkedList<string> _scienceQuestions = new LinkedList<string>();
+        private readonly int[] _scores = new int[NumberMaxOfPlayer];
+        private readonly LinkedList<string> _sportsQuestions = new LinkedList<string>();
 
 
         private int _currentPlayer;
@@ -41,7 +41,7 @@ namespace Trivia
         {
             _players.Add(playerName);
             _places[_players.Count] = 0;
-            _scores[_players.Count] = 0; 
+            _scores[_players.Count] = 0;
             _inPenaltyBox[_players.Count] = false;
 
             Console.WriteLine(playerName + " was added");
@@ -93,7 +93,7 @@ namespace Trivia
         private void AskQuestion()
         {
             switch (CurrentCategory())
-            { 
+            {
                 case Categories.Pop:
                     Console.WriteLine(_popQuestions.First());
                     _popQuestions.RemoveFirst();
@@ -106,7 +106,7 @@ namespace Trivia
                     Console.WriteLine(_sportsQuestions.First());
                     _sportsQuestions.RemoveFirst();
                     break;
-                case Categories.Rock: 
+                case Categories.Rock:
                     Console.WriteLine(_rockQuestions.First());
                     _rockQuestions.RemoveFirst();
                     break;
@@ -138,10 +138,7 @@ namespace Trivia
                 if (_isGettingOutOfPenaltyBox)
                     isNotWinner = UpdateScoreAndGetTheNotWinner();
                 else
-                {
                     isNotWinner = true;
-                }
-
             }
             else
             {
@@ -168,11 +165,7 @@ namespace Trivia
             _currentPlayer++;
             if (_currentPlayer == _players.Count) _currentPlayer = 0;
         }
-
-        /// <summary>
-        ///     To call when the answer is right
-        /// </summary>
-        /// <returns></returns>
+        
         public bool WrongAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");
@@ -181,7 +174,6 @@ namespace Trivia
 
             _currentPlayer++;
             if (_currentPlayer == _players.Count) _currentPlayer = 0;
-            //Must always return false 
             return true;
         }
     }

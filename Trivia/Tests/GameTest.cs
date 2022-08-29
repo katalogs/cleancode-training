@@ -88,5 +88,41 @@ namespace Tests
             game.WasCorrectlyAnswered();
             Approvals.Verify(fakeconsole.ToString());
         }
+
+        [Fact]
+        public void GameHasWinner()
+        {
+            // arrange
+            var fakeconsole = new StringWriter();
+            Console.SetOut(fakeconsole);
+            var game = new Game();
+            game.Add("Cedric");
+            game.Add("Eloïse");
+            // act
+            
+            game.Roll(1);
+            game.WasCorrectlyAnswered();
+            game.Roll(2);
+            game.WasCorrectlyAnswered();
+            game.Roll(2);
+            game.WasCorrectlyAnswered();
+            game.Roll(2);
+            game.WasCorrectlyAnswered();
+            game.Roll(2);
+            game.WasCorrectlyAnswered();
+            game.Roll(2);
+            game.WasCorrectlyAnswered();
+            game.Roll(2);
+            game.WasCorrectlyAnswered();
+            game.Roll(2);
+            game.WasCorrectlyAnswered();
+            game.Roll(2);
+            game.WasCorrectlyAnswered();
+            game.Roll(2);
+            game.WasCorrectlyAnswered();
+            
+            // assert
+            Approvals.Verify(fakeconsole.ToString());
+        }
     }
 }
