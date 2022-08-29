@@ -92,45 +92,43 @@ namespace Trivia
 
         private void AskQuestion()
         {
-            if (CurrentCategory() == Categories.Pop.ToString())
-            {
-                Console.WriteLine(_popQuestions.First());
-                _popQuestions.RemoveFirst();
+            switch (CurrentCategory())
+            { 
+                case Categories.Pop: 
+                {
+                    Console.WriteLine(_popQuestions.First());
+                    _popQuestions.RemoveFirst();
+                    break;
+                }
+                case Categories.Science:
+                    Console.WriteLine(_scienceQuestions.First());
+                    _scienceQuestions.RemoveFirst();
+                    break;
+                case Categories.Sports:
+                    Console.WriteLine(_sportsQuestions.First());
+                    _sportsQuestions.RemoveFirst();
+                    break;
+                case Categories.Rock: 
+                    Console.WriteLine(_rockQuestions.First());
+                    _rockQuestions.RemoveFirst();
+                    break;
             }
-
-            if (CurrentCategory() == Categories.Science.ToString())
-            {
-                Console.WriteLine(_scienceQuestions.First());
-                _scienceQuestions.RemoveFirst();
-            }
-
-            if (CurrentCategory() == Categories.Sports.ToString())
-            {
-                Console.WriteLine(_sportsQuestions.First());
-                _sportsQuestions.RemoveFirst();
-            }
-
-            if (CurrentCategory() == Categories.Rock.ToString())
-            {
-                Console.WriteLine(_rockQuestions.First());
-                _rockQuestions.RemoveFirst();
-            } 
         }
 
-        private string CurrentCategory()
+        private Categories CurrentCategory()
         {
             return _places[_currentPlayer] switch
             {
-                0 => Categories.Pop.ToString(),
-                4 => Categories.Pop.ToString(),
-                8 => Categories.Pop.ToString(),
-                1 => Categories.Science.ToString(),
-                5 => Categories.Science.ToString(),
-                9 => Categories.Science.ToString(),
-                2 => Categories.Sports.ToString(),
-                6 => Categories.Sports.ToString(),
-                10 => Categories.Sports.ToString(),
-                _ => Categories.Rock.ToString()
+                0 => Categories.Pop,
+                4 => Categories.Pop,
+                8 => Categories.Pop,
+                1 => Categories.Science,
+                5 => Categories.Science,
+                9 => Categories.Science,
+                2 => Categories.Sports,
+                6 => Categories.Sports,
+                10 => Categories.Sports,
+                _ => Categories.Rock
             };
         }
 
