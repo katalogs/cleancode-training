@@ -14,7 +14,7 @@ namespace Trivia
         private readonly int[] _places = new int[NumberMaxOfPlayer]; //Place of each player
 
         private readonly List<string> _players = new List<string>();
-        private readonly int[] _purses = new int[NumberMaxOfPlayer]; 
+        private readonly int[] _scores = new int[NumberMaxOfPlayer]; 
 
         private readonly LinkedList<string> _popQuestions = new LinkedList<string>();
         private readonly LinkedList<string> _scienceQuestions = new LinkedList<string>();
@@ -41,7 +41,7 @@ namespace Trivia
         {
             _players.Add(playerName);
             _places[_players.Count] = 0;
-            _purses[_players.Count] = 0; 
+            _scores[_players.Count] = 0; 
             _inPenaltyBox[_players.Count] = false;
 
             Console.WriteLine(playerName + " was added");
@@ -132,43 +132,38 @@ namespace Trivia
 
         public bool WasCorrectlyAnswered()
         {
+            PassToTheNextPlayer();
             if (_inPenaltyBox[_currentPlayer])
             {
                 if (_isGettingOutOfPenaltyBox)
-                {
-                    Console.WriteLine("Answer was correct!!!!");
-                    _purses[_currentPlayer]++;
-                    Console.WriteLine(_players[_currentPlayer]
-                                      + " now has "
-                                      + _purses[_currentPlayer]
-                                      + " Gold Coins.");
+                    return UpdateScoreAndGetTheNotWinner();
 
-                    var winner = _purses[_currentPlayer] != 6;
-                    _currentPlayer++;
-                    if (_currentPlayer == _players.Count) _currentPlayer = 0;
-
-                    return winner;
-                }
-
-                _currentPlayer++;
-                if (_currentPlayer == _players.Count) _currentPlayer = 0;
                 return true;
             }
             else
             {
-                Console.WriteLine("Answer was corrent!!!!");
-                _purses[_currentPlayer]++;
-                Console.WriteLine(_players[_currentPlayer]
-                                  + " now has "
-                                  + _purses[_currentPlayer]
-                                  + " Gold Coins.");
-
-                var winner = _purses[_currentPlayer] != 6;
-                _currentPlayer++;
-                if (_currentPlayer == _players.Count) _currentPlayer = 0;
-
-                return winner;
+                return UpdateScoreAndGetTheNotWinner();
             }
+        }
+
+        private bool UpdateScoreAndGetTheNotWinner()
+        {
+            Console.WriteLine("Answer was correct!!!!");
+            _scores[_currentPlayer]++;
+            Console.WriteLine(_players[_currentPlayer]
+                              + " now has "
+                              + _scores[_currentPlayer]
+                              + " Gold Coins.");
+
+            var notWinner = _scores[_currentPlayer] != 6;
+
+            return notWinner;
+        }
+
+        private void PassToTheNextPlayer()
+        {
+            _currentPlayer++;
+            if (_currentPlayer == _players.Count) _currentPlayer = 0;
         }
 
         /// <summary>
