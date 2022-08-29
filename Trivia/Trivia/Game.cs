@@ -7,6 +7,7 @@ namespace Trivia
     public class Game
     {
         private const int NumberMaxOfPlayer = 6;
+        private const int NumberOfQuestionByCategories = 50;
 
         private readonly bool[] _inPenaltyBox = new bool[NumberMaxOfPlayer];
 
@@ -15,10 +16,10 @@ namespace Trivia
         private readonly List<string> _players = new List<string>();
         private readonly int[] _purses = new int[6];
 
-        private readonly LinkedList<string> _q1 = new LinkedList<string>();
-        private readonly LinkedList<string> _q2 = new LinkedList<string>();
-        private readonly LinkedList<string> _q3 = new LinkedList<string>();
-        private readonly LinkedList<string> _q5 = new LinkedList<string>();
+        private readonly LinkedList<string> _popQuestions = new LinkedList<string>();
+        private readonly LinkedList<string> _scienceQuestions = new LinkedList<string>();
+        private readonly LinkedList<string> _sportsQuestions = new LinkedList<string>();
+        private readonly LinkedList<string> _rockQuestions = new LinkedList<string>();
 
 
         private int _currentPlayer;
@@ -28,15 +29,13 @@ namespace Trivia
         {
             for (var i = 0; i < NumberOfQuestionByCategories; i++)
             {
-                _q1.AddLast("Pop Question " + i);
-                _q2.AddLast("Science Question " + i);
-                _q3.AddLast("Sports Question " + i);
-                _q5.AddLast("Rock Question " + i);
+                _popQuestions.AddLast("Pop Question " + i);
+                _scienceQuestions.AddLast("Science Question " + i);
+                _sportsQuestions.AddLast("Sports Question " + i);
+                _rockQuestions.AddLast("Rock Question " + i);
             }
-            //Shuf();
         }
 
-        private static int NumberOfQuestionByCategories => 50;
 
         public bool Add(string playerName)
         {
@@ -102,49 +101,46 @@ namespace Trivia
         {
             if (CurrentCategory() == "Pop")
             {
-                Console.WriteLine(_q1.First());
-                _q1.RemoveFirst();
+                Console.WriteLine(_popQuestions.First());
+                _popQuestions.RemoveFirst();
             }
 
             if (CurrentCategory() == "Science")
             {
-                Console.WriteLine(_q2.First());
-                _q2.RemoveFirst();
+                Console.WriteLine(_scienceQuestions.First());
+                _scienceQuestions.RemoveFirst();
             }
 
             if (CurrentCategory() == "Sports")
             {
-                Console.WriteLine(_q3.First());
-                _q3.RemoveFirst();
+                Console.WriteLine(_sportsQuestions.First());
+                _sportsQuestions.RemoveFirst();
             }
 
             if (CurrentCategory() == "Rock")
             {
-                Console.WriteLine(_q5.First());
-                _q5.RemoveFirst();
-            }
-            //Shuf();
+                Console.WriteLine(_rockQuestions.First());
+                _rockQuestions.RemoveFirst();
+            } 
         }
 
         private string CurrentCategory()
         {
-            if (_places[_currentPlayer] == 0) return "Pop";
-            if (_places[_currentPlayer] == 4) return "Pop";
-            if (_places[_currentPlayer] == 8) return "Pop";
-            if (_places[_currentPlayer] == 1) return "Science";
-            if (_places[_currentPlayer] == 5) return "Science";
-            if (_places[_currentPlayer] == 9) return "Science";
-            if (_places[_currentPlayer] == 2) return "Sports";
-            if (_places[_currentPlayer] == 6) return "Sports";
-            if (_places[_currentPlayer] == 10) return "Sports";
-            return "Rock";
+            return _places[_currentPlayer] switch
+            {
+                0 => "Pop",
+                4 => "Pop",
+                8 => "Pop",
+                1 => "Science",
+                5 => "Science",
+                9 => "Science",
+                2 => "Sports",
+                6 => "Sports",
+                10 => "Sports",
+                _ => "Rock"
+            };
         }
 
-
-        /// <summary>
-        ///     To call when the answer is right
-        /// </summary>
-        /// <returns></returns>
         public bool WasCorrectlyAnswered()
         {
             if (_inPenaltyBox[_currentPlayer])
