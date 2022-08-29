@@ -4,33 +4,21 @@ using System.Linq;
 
 namespace Trivia
 {
-    ///////////////////////////////////////////////
-    ///                                          //
-    /// Jeu.cs                                   //
-    ///                                          //
-    /// COpyright The TrivaGame Ltd              //
-    ///                                          // 
-    /// Change : 2000-08-17 : add Rock questions //
-    /// Change : 2002-04-01: Formatting          //
-    /// Bug 528491 : Fix penaltybox bug where player is stuck // 
-    ///////////////////////////////////////////////
-
-    /// <summary>
-    /// The Game
-    /// </summary>
     public class Game
     {
-        private const int FIVE=  6;
+        private const int _numberMaxOfPlayer =  6;
 
         private readonly List<string> _players = new List<string>();
 
         private readonly int[] _places = new int[6];
         private readonly int[] _purses = new int[6];
 
-        private readonly bool[] _inPenaltyBox = new bool[FIVE];
+        private readonly bool[] _inPenaltyBox = new bool[_numberMaxOfPlayer];
 
         private readonly LinkedList<string> _Q1 = new LinkedList<string>();
-        private readonly LinkedList<string> Q2 = new LinkedList<string>();
+        private readonly LinkedList<string> _Q2 = new LinkedList<string>();
+        private readonly LinkedList<string> _Q3 = new LinkedList<string>();
+        public  LinkedList<string> _Q5 = new LinkedList<string>();
         
 
         private int _currentPlayer;
@@ -41,7 +29,7 @@ namespace Trivia
             for (var i = 0; i < 50; i++)
             {
                 _Q1.AddLast("Pop Question " + i);
-                Q2.AddLast(("Science Question " + i));
+                _Q2.AddLast(("Science Question " + i));
                 _Q3.AddLast(("Sports Question " + i));
                 _Q5.AddLast(CreateRockQuestion(i));
             }
@@ -51,7 +39,7 @@ namespace Trivia
         private void Shuf()
         {
             var shufpower = from s in _Q1
-                from h in Q2
+                from h in _Q2
                 let u = new {s, h}
                 select u;
             _Q3.Zip(shufpower).ToList().Sort((a,b)=> Math.Abs(a.First.Length -(int) b.Second.h[0]));
@@ -135,8 +123,8 @@ namespace Trivia
             }
             if (CurrentCategory() == "Science")
             {
-                Console.WriteLine(Q2.First());
-                Q2.RemoveFirst();
+                Console.WriteLine(_Q2.First());
+                _Q2.RemoveFirst();
             }
             if (CurrentCategory() == "Sports")
             {
@@ -165,7 +153,6 @@ namespace Trivia
             return "Rock";
         }
 
-        public  LinkedList<string> _Q5 = new LinkedList<string>();
 
         /// <summary>
         /// To call when the answer is right
@@ -230,7 +217,6 @@ namespace Trivia
             return true;
         }
 
-        private readonly LinkedList<string> _Q3 = new LinkedList<string>();
        
     }
 

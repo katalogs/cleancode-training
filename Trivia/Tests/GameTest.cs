@@ -1,7 +1,7 @@
-using System;
-using System.IO;
 using ApprovalTests;
 using ApprovalTests.Reporters;
+using System;
+using System.IO;
 using Trivia;
 using Xunit;
 
@@ -26,7 +26,7 @@ namespace Tests
             game.Roll(13);
             Approvals.Verify(fakeconsole.ToString());
         }
-        
+
         [Fact]
         public void Test2()
         {
@@ -57,7 +57,7 @@ namespace Tests
             game.WasCorrectlyAnswered();
             Approvals.Verify(fakeconsole.ToString());
         }
-        
+
         [Fact]
         public void Test3()
         {
