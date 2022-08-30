@@ -11,13 +11,13 @@ namespace Trivia
         private const int ScoreToWin = 6;
         private const int NumberOfBoardBox = 12;
         private readonly bool[] _inPenaltyBox = new bool[NumberMaxOfPlayer];
-        private readonly int[] _places = new int[NumberMaxOfPlayer]; //Place of each player
+        private readonly int[] _places = new int[NumberMaxOfPlayer];
         private readonly List<string> _players = new List<string>();
-        private readonly Deck _popQuestions = new Deck();
-        private readonly LinkedList<Question> _rockQuestions = new LinkedList<Question>();
-        private readonly LinkedList<Question> _scienceQuestions = new LinkedList<Question>();
+        private readonly Deck _popDeck = new Deck();
+        private readonly Deck _rockDeck = new Deck();
+        private readonly Deck _scienceDeck = new Deck();
+        private readonly Deck _sportsDeck = new Deck();
         private readonly int[] _scores = new int[NumberMaxOfPlayer];
-        private readonly LinkedList<Question> _sportsQuestions = new LinkedList<Question>();
 
         private int _currentPlayer;
         private bool _isGettingOutOfPenaltyBox;
@@ -26,10 +26,10 @@ namespace Trivia
         {
             for (var i = 0; i < NumberOfQuestionByCategories; i++)
             {
-                _popQuestions.AddQuestion(new Question($"{Categories.Pop} Question {i}"));
-                _scienceQuestions.AddLast(new Question($"{Categories.Science} Question {i}"));
-                _sportsQuestions.AddLast(new Question($"{Categories.Sports} Question {i}"));
-                _rockQuestions.AddLast(new Question($"{Categories.Rock} Question {i}"));
+                _popDeck.AddQuestion(new Question($"{Categories.Pop} Question {i}"));
+                _scienceDeck.AddQuestion(new Question($"{Categories.Science} Question {i}"));
+                _sportsDeck.AddQuestion(new Question($"{Categories.Sports} Question {i}"));
+                _rockDeck.AddQuestion(new Question($"{Categories.Rock} Question {i}"));
             }
         }
 
@@ -92,21 +92,20 @@ namespace Trivia
             switch (CurrentCategory())
             {
                 case Categories.Pop:
-                    var question = _popQuestions.DrawQuestion();
-                    Console.WriteLine(question);
-                    _popQuestions.RemoveFirst();
+                    var popQuestion = _popDeck.DrawQuestion();
+                    Console.WriteLine(popQuestion);
                     break;
                 case Categories.Science:
-                    Console.WriteLine(_scienceQuestions.First());
-                    _scienceQuestions.RemoveFirst();
+                    var scienceQuestion = _scienceDeck.DrawQuestion();
+                    Console.WriteLine(scienceQuestion);
                     break;
                 case Categories.Sports:
-                    Console.WriteLine(_sportsQuestions.First());
-                    _sportsQuestions.RemoveFirst();
+                    var sportsQuestions = _sportsDeck.DrawQuestion();
+                    Console.WriteLine(sportsQuestions);
                     break;
                 case Categories.Rock:
-                    Console.WriteLine(_rockQuestions.First());
-                    _rockQuestions.RemoveFirst();
+                    var rockQuestion = _rockDeck.DrawQuestion();
+                    Console.WriteLine(rockQuestion);
                     break;
             }
         }
