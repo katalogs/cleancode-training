@@ -13,11 +13,11 @@ namespace Trivia
         private readonly bool[] _inPenaltyBox = new bool[NumberMaxOfPlayer];
         private readonly int[] _places = new int[NumberMaxOfPlayer]; //Place of each player
         private readonly List<string> _players = new List<string>();
-        private readonly LinkedList<Question> _popQuestions = new LinkedList<Question>();
-        private readonly LinkedList<string> _rockQuestions = new LinkedList<string>();
-        private readonly LinkedList<string> _scienceQuestions = new LinkedList<string>();
+        private readonly Deck _popQuestions = new Deck();
+        private readonly LinkedList<Question> _rockQuestions = new LinkedList<Question>();
+        private readonly LinkedList<Question> _scienceQuestions = new LinkedList<Question>();
         private readonly int[] _scores = new int[NumberMaxOfPlayer];
-        private readonly LinkedList<string> _sportsQuestions = new LinkedList<string>();
+        private readonly LinkedList<Question> _sportsQuestions = new LinkedList<Question>();
 
         private int _currentPlayer;
         private bool _isGettingOutOfPenaltyBox;
@@ -26,10 +26,10 @@ namespace Trivia
         {
             for (var i = 0; i < NumberOfQuestionByCategories; i++)
             {
-                _popQuestions.AddLast(new Question($"{Categories.Pop} Question {i}"));
-                _scienceQuestions.AddLast($"{Categories.Science} Question {i}");
-                _sportsQuestions.AddLast($"{Categories.Sports} Question {i}");
-                _rockQuestions.AddLast($"{Categories.Rock} Question {i}");
+                _popQuestions.AddQuestion(new Question($"{Categories.Pop} Question {i}"));
+                _scienceQuestions.AddLast(new Question($"{Categories.Science} Question {i}"));
+                _sportsQuestions.AddLast(new Question($"{Categories.Sports} Question {i}"));
+                _rockQuestions.AddLast(new Question($"{Categories.Rock} Question {i}"));
             }
         }
 
@@ -92,7 +92,8 @@ namespace Trivia
             switch (CurrentCategory())
             {
                 case Categories.Pop:
-                    Console.WriteLine(_popQuestions.First());
+                    var question = _popQuestions.DrawQuestion();
+                    Console.WriteLine(question);
                     _popQuestions.RemoveFirst();
                     break;
                 case Categories.Science:
