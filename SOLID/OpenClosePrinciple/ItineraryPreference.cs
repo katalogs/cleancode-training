@@ -4,5 +4,6 @@ namespace SOLID.OpenClosePrinciple
     {
         Shortest,
         Cheapest,
+        LessConnectionPossible
     }
 }
