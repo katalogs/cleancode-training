@@ -2,7 +2,7 @@ using System;
 
 namespace Parrot
 {
-    public class NorwegianBlueParrot: IParrot
+    public class NorwegianBlueParrot: Parrot
     {
         private readonly bool _isNailed;
         private readonly double _voltage;

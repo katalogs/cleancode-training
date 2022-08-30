@@ -2,7 +2,7 @@
 
 namespace Parrot
 {
-    public class AfricanParrot : IParrot
+    public class AfricanParrot : Parrot
     {
         private readonly int _numberOfCoconuts;
         private const double LoadFactor = 9.0;

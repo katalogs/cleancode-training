@@ -1,6 +1,6 @@
 ﻿namespace Parrot
 {
-    public class EuropeanParrot : IParrot
+    public class EuropeanParrot : Parrot
     {
         public override double GetSpeed()
         {

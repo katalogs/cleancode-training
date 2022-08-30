@@ -132,39 +132,20 @@ namespace Trivia
 
         public bool WasCorrectlyAnswered()
         {
-            bool isNotWinner;
-            if (_inPenaltyBox[_currentPlayer])
-            {
-                if (_isGettingOutOfPenaltyBox)
-                {
-                    isNotWinner = UpdateScoreAndGetTheNotWinner();
-                    Console.WriteLine("Answer was correct!!!!");
-                    Console.WriteLine(_players[_currentPlayer]
-                                      + " now has "
-                                      + _scores[_currentPlayer]
-                                      + " Gold Coins.");
-                }
-                else
-                    isNotWinner = true;
-            }
-            else
-            {
-                isNotWinner = UpdateScoreAndGetTheNotWinner();
+            if (!_inPenaltyBox[_currentPlayer] || (_isGettingOutOfPenaltyBox && _inPenaltyBox[_currentPlayer]))
+            {  
+                IncrementScore();
                 Console.WriteLine("Answer was correct!!!!");
                 Console.WriteLine(_players[_currentPlayer]
-                                  + " now has "
-                                  + _scores[_currentPlayer]
-                                  + " Gold Coins.");
+                                    + " now has "
+                                    + _scores[_currentPlayer]
+                                    + " Gold Coins.");
                 
             }
+           
+            bool isNotWinner = HasNoWinner();
             PassToTheNextPlayer();
             return isNotWinner;
-        }
-
-        private bool UpdateScoreAndGetTheNotWinner()
-        {
-            IncrementScore();
-            return HasNoWinner();
         }
 
         private bool HasNoWinner()
