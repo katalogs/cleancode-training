@@ -49,7 +49,7 @@ namespace Parrot.Tests
         [Fact]
         public void GetSpeedOfEuropeanParrot()
         {
-            var parrot = new Parrot(ParrotTypeEnum.EUROPEAN, 0, 0, false);
+            var parrot = new EuropeanParrot();
             Assert.Equal(12.0, parrot.GetSpeed());
         }
     }
