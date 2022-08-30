@@ -2,7 +2,6 @@
 {
     public enum ParrotTypeEnum
     {
-        AFRICAN,
         NORWEGIAN_BLUE
     }
 }

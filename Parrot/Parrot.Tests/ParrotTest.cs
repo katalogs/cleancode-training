@@ -25,26 +25,15 @@ namespace Parrot.Tests
             Assert.Equal(24.0, parrot.GetSpeed());
         }
 
-        [Fact]
-        public void GetSpeedOfAfricanParrot_With_No_Coconuts()
+        [Theory]
+        [InlineData(0, 12.0)]
+        [InlineData(1, 3.0)]
+        [InlineData(2, 0.0)]
+        public void GetSpeedOfAfricanParrot_With_No_Coconuts(int numberOfCoconuts, double speed)
         {
-            var parrot = new Parrot(ParrotTypeEnum.AFRICAN, 0, 0, false);
-            Assert.Equal(12.0, parrot.GetSpeed());
-        }
-
-        [Fact]
-        public void GetSpeedOfAfricanParrot_With_One_Coconut()
-        {
-            var parrot = new Parrot(ParrotTypeEnum.AFRICAN, 1, 0, false);
-            Assert.Equal(3.0, parrot.GetSpeed());
-        }
-
-        [Fact]
-        public void GetSpeedOfAfricanParrot_With_Two_Coconuts()
-        {
-            var parrot = new Parrot(ParrotTypeEnum.AFRICAN, 2, 0, false);
-            Assert.Equal(0.0, parrot.GetSpeed());
-        }
+            var parrot = new AfricanParrot(numberOfCoconuts);
+            Assert.Equal(speed, parrot.GetSpeed());
+        }  
 
         [Fact]
         public void GetSpeedOfEuropeanParrot()

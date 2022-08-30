@@ -5,7 +5,6 @@ namespace Parrot
     public class Parrot : IParrot
     {
         private readonly bool _isNailed;
-        private readonly int _numberOfCoconuts;
         private readonly ParrotTypeEnum _type;
         private readonly double _voltage;
         private const double LoadFactor = 9.0;
@@ -13,7 +12,6 @@ namespace Parrot
         public Parrot(ParrotTypeEnum type, int numberOfCoconuts, double voltage, bool isNailed)
         {
             _type = type;
-            _numberOfCoconuts = numberOfCoconuts;
             _voltage = voltage;
             _isNailed = isNailed;
         }
@@ -22,8 +20,6 @@ namespace Parrot
         {
             switch (_type)
             {
-                case ParrotTypeEnum.AFRICAN:
-                    return Math.Max(0, BaseSpeed - LoadFactor * _numberOfCoconuts);
                 case ParrotTypeEnum.NORWEGIAN_BLUE:
                     return _isNailed ? 0 : GetBaseSpeed(_voltage);
                 default:
