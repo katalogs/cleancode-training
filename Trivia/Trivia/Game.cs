@@ -136,13 +136,26 @@ namespace Trivia
             if (_inPenaltyBox[_currentPlayer])
             {
                 if (_isGettingOutOfPenaltyBox)
+                {
                     isNotWinner = UpdateScoreAndGetTheNotWinner();
+                    Console.WriteLine("Answer was correct!!!!");
+                    Console.WriteLine(_players[_currentPlayer]
+                                      + " now has "
+                                      + _scores[_currentPlayer]
+                                      + " Gold Coins.");
+                }
                 else
                     isNotWinner = true;
             }
             else
             {
                 isNotWinner = UpdateScoreAndGetTheNotWinner();
+                Console.WriteLine("Answer was correct!!!!");
+                Console.WriteLine(_players[_currentPlayer]
+                                  + " now has "
+                                  + _scores[_currentPlayer]
+                                  + " Gold Coins.");
+                
             }
             PassToTheNextPlayer();
             return isNotWinner;
@@ -150,14 +163,18 @@ namespace Trivia
 
         private bool UpdateScoreAndGetTheNotWinner()
         {
-            Console.WriteLine("Answer was correct!!!!");
-            _scores[_currentPlayer]++;
-            Console.WriteLine(_players[_currentPlayer]
-                              + " now has "
-                              + _scores[_currentPlayer]
-                              + " Gold Coins.");
+            IncrementScore();
+            return HasNoWinner();
+        }
 
+        private bool HasNoWinner()
+        {
             return _scores[_currentPlayer] != 6;
+        }
+
+        private void IncrementScore()
+        {
+            _scores[_currentPlayer]++;
         }
 
         private void PassToTheNextPlayer()
