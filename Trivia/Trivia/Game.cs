@@ -8,19 +8,16 @@ namespace Trivia
     {
         private const int NumberMaxOfPlayer = 6;
         private const int NumberOfQuestionByCategories = 50;
-
+        private const int ScoreToWin = 6;
+        private const int NumberOfBoardBox = 12;
         private readonly bool[] _inPenaltyBox = new bool[NumberMaxOfPlayer];
-
         private readonly int[] _places = new int[NumberMaxOfPlayer]; //Place of each player
-
         private readonly List<string> _players = new List<string>();
-
         private readonly LinkedList<string> _popQuestions = new LinkedList<string>();
         private readonly LinkedList<string> _rockQuestions = new LinkedList<string>();
         private readonly LinkedList<string> _scienceQuestions = new LinkedList<string>();
         private readonly int[] _scores = new int[NumberMaxOfPlayer];
         private readonly LinkedList<string> _sportsQuestions = new LinkedList<string>();
-
 
         private int _currentPlayer;
         private bool _isGettingOutOfPenaltyBox;
@@ -81,7 +78,7 @@ namespace Trivia
         private void PlayTurn(int roll)
         {
             _places[_currentPlayer] += roll;
-            if (_places[_currentPlayer] > 11) _places[_currentPlayer] -= 12;
+            if (_places[_currentPlayer] > (NumberOfBoardBox-1)) _places[_currentPlayer] -= NumberOfBoardBox;
 
             Console.WriteLine(_players[_currentPlayer]
                               + "'s new location is "
@@ -132,25 +129,31 @@ namespace Trivia
 
         public bool WasCorrectlyAnswered()
         {
-            if (!_inPenaltyBox[_currentPlayer] || (_isGettingOutOfPenaltyBox && _inPenaltyBox[_currentPlayer]))
-            {  
+            if (IsInPenaltyBoxOrIsGettingOutOf())
+            {
                 IncrementScore();
                 Console.WriteLine("Answer was correct!!!!");
                 Console.WriteLine(_players[_currentPlayer]
                                     + " now has "
                                     + _scores[_currentPlayer]
                                     + " Gold Coins.");
-                
+
             }
-           
+
             bool isNotWinner = HasNoWinner();
             PassToTheNextPlayer();
             return isNotWinner;
+
+        }
+
+        public bool IsInPenaltyBoxOrIsGettingOutOf()
+        {
+            return !_inPenaltyBox[_currentPlayer] || (_isGettingOutOfPenaltyBox && _inPenaltyBox[_currentPlayer]);
         }
 
         private bool HasNoWinner()
         {
-            return _scores[_currentPlayer] != 6;
+            return _scores[_currentPlayer] != ScoreToWin;
         }
 
         private void IncrementScore()
