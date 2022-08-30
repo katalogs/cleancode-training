@@ -1,8 +1,9 @@
+using SOLID.InterfaceSegregation.Interfaces;
 using System;
 
 namespace SOLID.InterfaceSegregation
 {
-    public class MultiFunctionCopier : Machine {
+    public class MultiFunctionCopier : IScan, IPhotoCopy, IFax, IPrinter {
 
         
         public void Print() {
