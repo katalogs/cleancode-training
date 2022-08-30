@@ -10,12 +10,16 @@ namespace Trivia
 
         public void AddQuestion(Question question, Categories pop)
         {
-            _decks.GetValueOrDefault(pop).AddQuestion(question);
+            if (_decks.GetValueOrDefault(pop) == null)
+            {
+                _decks.Add(pop, new Deck());
+            }
+            _decks.GetValueOrDefault(pop)!.AddQuestion(question);
         }
 
         public Question DrawQuestion(Categories pop)
         {
-            throw new NotImplementedException();
+            return _decks.GetValueOrDefault(pop)!.DrawQuestion();
         }
     }
 }
