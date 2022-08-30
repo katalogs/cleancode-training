@@ -13,7 +13,7 @@ namespace Trivia
         private readonly bool[] _inPenaltyBox = new bool[NumberMaxOfPlayer];
         private readonly int[] _places = new int[NumberMaxOfPlayer];
         private readonly List<string> _players = new List<string>();
-        private readonly Deck _popDeck = new Deck();
+        private readonly DeckManager _deckManager = new DeckManager();
         private readonly Deck _rockDeck = new Deck();
         private readonly Deck _scienceDeck = new Deck();
         private readonly Deck _sportsDeck = new Deck();
@@ -26,7 +26,7 @@ namespace Trivia
         {
             for (var i = 0; i < NumberOfQuestionByCategories; i++)
             {
-                _popDeck.AddQuestion(new Question($"{Categories.Pop} Question {i}"));
+                _deckManager.AddQuestion(new Question($"{Categories.Pop} Question {i}"), Categories.Pop);
                 _scienceDeck.AddQuestion(new Question($"{Categories.Science} Question {i}"));
                 _sportsDeck.AddQuestion(new Question($"{Categories.Sports} Question {i}"));
                 _rockDeck.AddQuestion(new Question($"{Categories.Rock} Question {i}"));
@@ -92,7 +92,7 @@ namespace Trivia
             switch (CurrentCategory())
             {
                 case Categories.Pop:
-                    var popQuestion = _popDeck.DrawQuestion();
+                    var popQuestion = _deckManager.DrawQuestion(Categories.Pop);
                     Console.WriteLine(popQuestion);
                     break;
                 case Categories.Science:
